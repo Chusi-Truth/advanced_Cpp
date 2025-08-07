@@ -17,6 +17,31 @@ target_compile_options(run PRIVATE
 )
 
 # ----------todo: 调试模式以及编译提示
+# 1. 添加调试模式选项
+option(DEBUG_MODE "Enable debug mode" OFF)
+
+# 2. 根据调试模式设置编译定义
+if(DEBUG_MODE)
+    message(STATUS "Debug mode: ON - Enabling debug output")
+    target_compile_definitions(run PRIVATE DEBUG)
+else()
+    message(STATUS "Debug mode: OFF - Disabling debug output")
+endif()
+
+# 3. 添加自定义命令在构建时显示平台信息
+if(WIN32)
+    set(OS_NAME "Windows")
+elseif(UNIX AND NOT APPLE)
+    set(OS_NAME "Linux")
+else()
+    set(OS_NAME "${CMAKE_SYSTEM_NAME}")
+endif()
+
+add_custom_command(TARGET run PRE_BUILD
+    COMMAND ${CMAKE_COMMAND} -E echo "===== Compiling on ${OS_NAME} ====="
+    COMMENT "Building for ${OS_NAME}"
+)
+
 
 # ----------
 
