@@ -5,3 +5,6 @@
 build
 dummies
 *.so
+
+./assignment/flyingPointer2/learn
+
