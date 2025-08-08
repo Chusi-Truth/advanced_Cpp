@@ -1,0 +1,3 @@
+/mnt/e/advanced_Cpp/example/case3/build/CMakeFiles/run.dir
+/mnt/e/advanced_Cpp/example/case3/build/CMakeFiles/edit_cache.dir
+/mnt/e/advanced_Cpp/example/case3/build/CMakeFiles/rebuild_cache.dir

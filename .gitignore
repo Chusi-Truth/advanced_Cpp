@@ -1,7 +1,0 @@
-*.s
-*.i
-*.exe
-*.o
-build
-dummies
-*.so

@@ -345,7 +345,7 @@ g++ main.cpp -L. -lmath -o main           # 链接动态库（运行时需要 li
 g++ -fPIC -shared src/behavior.cpp -o libbehavior.so   # Linux
 g++ -fPIC -shared src/act.cpp -o libact.so   # Linux
 # 编译主程序并链接动态库
-g++ src/run.cpp -Iinclude -o run -L. -lbehavior -Wl,-rpath=.
+g++ src/run.cpp -Iinclude -o run -L. -lbehavior -lact -Wl,-rpath=.
 ~~~
 
 
