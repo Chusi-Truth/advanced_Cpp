@@ -1,1 +1,12 @@
 your answer
+
+1. %%与*/同优先级：
+A -> A+B | A-B | B
+B -> B*C | B/C | B%%C | C
+C -> (A) | number
+
+2. %%是最高优先级：
+A -> A+B | A-B | B
+B -> B*C | B/C | C
+C -> C%%D | D
+D -> (A) | number

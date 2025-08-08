@@ -18,6 +18,25 @@ target_compile_options(run PRIVATE
 
 # ----------todo: 调试模式以及编译提示
 
+# 自定义命令行选项：缺省为 Release
+option(BUILD_MODE "Build mode: Debug or Release" Release)
+set(CMAKE_BUILD_TYPE ${BUILD_MODE})
+
+# 根据 CMAKE_BUILD_TYPE 决定是否加宏
+if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+    add_compile_definitions(run PRIVATE DEBUG_MODEL)  
+    message(STATUS ">>> Debug build <<<")
+else()
+    message(STATUS ">>> Release build <<<")
+endif()
+
+# 打印编译环境信息
+if(WIN32)
+  message(STATUS "Building on Windows")
+elseif(Linux)
+  message(STATUS "Building on Linux")
+endif()
+
 # ----------
 
 
