@@ -17,7 +17,24 @@ target_compile_options(run PRIVATE
 )
 
 # ----------todo: 调试模式以及编译提示
+option(DEBUG_MODEL "Enable debug output" OFF)
+message(STATUS "Debug debug model ${DEBUG_MODEL}")
 
+if(WIN32)
+    message(STATUS "Compiling on Windows system")
+elseif(UNIX)
+    message(STATUS "Compiling on Linux system")
+else()
+    message(STATUS "Compiling on unknown system")
+endif()
+
+if(DEBUG_MODEL)
+    target_compile_definitions(run PRIVATE DEBUG_MODEL=1)
+    message(STATUS "Debug output ENABLED for analyze.cpp")
+else()
+    target_compile_definitions(run PRIVATE DEBUG_MODEL=0)
+    message(STATUS "Debug output DISABLED for analyze.cpp")
+endif()
 # ----------
 
 
