@@ -16,15 +16,30 @@ target_compile_options(run PRIVATE
     -ftemplate-backtrace-limit=0
 )
 
-# ----------todo: 调试模式以及编译提示
-
-# ----------
-
+# 检测操作系统平台
+if(WIN32)
+  message(STATUS "Building on Windows")
+elseif(UNIX)
+  message(STATUS "Building on Unix/Linux")
+endif()
+#自定义命令行参数，默认禁用
+option(DEBUG_MODE "Enable debug output for analyze.cpp" OFF)
+# 显示当前构建模式
+if(DEBUG_MODE)
+    message(STATUS "构建模式: Debug (启用调试输出)")
+else()
+    message(STATUS "构建模式: Release (禁用调试输出)")
+endif()
+#根据构建模式设置宏定义，在 C++ 代码中，可以通过 #ifdef 或 #if 等预处理指令来检查这个宏的值，从而控制调试信息的输出。
+if(DEBUG_MODE)
+    target_compile_definitions(run PRIVATE ENABLE_DEBUG_OUTPUT=1)
+else()
+    target_compile_definitions(run PRIVATE ENABLE_DEBUG_OUTPUT=0)
+endif()
 
 set_target_properties(run PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin
 )
-
 
 message(STATUS "源文件数量: ${SOURCES}")
 message(STATUS "生成可执行文件: run")
