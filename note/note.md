@@ -193,13 +193,13 @@ a = t2
 
 ##### 常见优化技术：
 
-| 优化名      | 示例前                     | 示例后                        |
-| -------- | ----------------------- | -------------------------- |
-| 常量折叠     | `x = 3 + 5;`            | `x = 8;`                   |
-| 死代码删除    | `int a = 5; return 1;`  | `return 1;`                |
+| 优化名           | 示例前                  | 示例后                     |
+| ---------------- | ----------------------- | -------------------------- |
+| 常量折叠         | `x = 3 + 5;`            | `x = 8;`                   |
+| 死代码删除       | `int a = 5; return 1;`  | `return 1;`                |
 | 公共子表达式消除 | `a = b + c; d = b + c;` | `t = b + c; a = t; d = t;` |
-| 循环不变代码外提 | 在循环中重复计算                | 提前到循环外                     |
-| 函数内联     | `call foo()`            | 展开 `foo` 函数体               |
+| 循环不变代码外提 | 在循环中重复计算        | 提前到循环外               |
+| 函数内联         | `call foo()`            | 展开 `foo` 函数体          |
 
 
 ![C++梗图](./assets/spiderman.jpg)
@@ -345,7 +345,7 @@ g++ main.cpp -L. -lmath -o main           # 链接动态库（运行时需要 li
 g++ -fPIC -shared src/behavior.cpp -o libbehavior.so   # Linux
 g++ -fPIC -shared src/act.cpp -o libact.so   # Linux
 # 编译主程序并链接动态库
-g++ src/run.cpp -Iinclude -o run -L. -lbehavior -Wl,-rpath=.
+g++ src/run.cpp -Iinclude -o run -L. -lbehavior -lact -Wl,-rpath=.
 ~~~
 
 
