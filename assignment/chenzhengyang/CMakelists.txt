@@ -1,0 +1,51 @@
+cmake_minimum_required(VERSION 3.12)
+project(DemoProject LANGUAGES CXX)
+
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+# 这里改为相对路径指向 hw_proj 里的 include 和 src
+include_directories(${CMAKE_SOURCE_DIR}/../hw_proj/include)
+
+file(GLOB_RECURSE SOURCES ${CMAKE_SOURCE_DIR}/../hw_proj/src/*.cpp)
+
+add_executable(run ${SOURCES})
+
+target_compile_options(run PRIVATE
+    -ftemplate-depth=11000
+    -ftemplate-backtrace-limit=0
+)
+
+# ----------todo: 调试模式以及编译提示
+
+# 1. 命令行参数实现 debug/release 模式切换
+# 使用 option() 命令定义一个名为 BUILD_DEBUG_MODE 的变量，
+# 它可以作为命令行参数在构建时被设置（例如 -DBUILD_DEBUG_MODE=ON）。
+# 括号中的第一个字符串是变量名，第二个是描述，第三个是默认值 (OFF)。
+option(BUILD_DEBUG_MODE "Build with debug mode enabled" OFF)
+
+if(BUILD_DEBUG_MODE)
+    # 如果处于 Debug 模式，使用 target_compile_definitions() 为 "run" 目标添加一个宏定义。 有选择地编译包含调试信息的代码。
+    target_compile_definitions(run PRIVATE DEBUG_MODE)
+    message(STATUS "Building in Debug Mode.")
+else()
+    message(STATUS "Building in Release Mode.")
+endif()
+
+# 2. 打印编译环境
+if(WIN32)
+    message(STATUS "当前编译环境: Windows")
+elseif(UNIX)
+    message(STATUS "当前编译环境: Linux/Unix")
+endif()
+
+# ----------
+
+
+set_target_properties(run PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin
+)
+
+
+message(STATUS "源文件数量: ${SOURCES}")
+message(STATUS "生成可执行文件: run")
