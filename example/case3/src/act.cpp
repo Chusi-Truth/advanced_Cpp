@@ -6,22 +6,21 @@
 
 bool execAction()
 {
-    Action bestMove=analyzeBestAction();
+    Action bestMove = analyzeBestAction();
 
-    if(bestMove==Action::attack)
+    if (bestMove == Action::attack)
     {
-        std::cout<<"Defect is attacking!"<<std::endl;
-        std::cout<<"Defect is attacking!"<<std::endl;
+        std::cout << "Defect is attacking!" << std::endl;
+        std::cout << "Defect is attacking!" << std::endl;
     }
-    else if(bestMove==Action::defent)
+    else if (bestMove == Action::defent)
     {
-        std::cout<<"Defect is defentfing!"<<std::endl;
-        std::cout<<"Defect is defentfing!"<<std::endl;
+        std::cout << "Defect is defentfing!" << std::endl;
+        std::cout << "Defect is defentfing!" << std::endl;
     }
     else
     {
-        std::cout<<"Defect is doing something!"<<std::endl;
+        std::cout << "Defect is doing something!" << std::endl;
     }
     return 0;
-
 }
