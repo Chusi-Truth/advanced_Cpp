@@ -310,7 +310,7 @@ g++ main.o -o program -lfoo
 
 - 优点：节省空间，多个程序可以共享库，易于更新
 
-- 缺点：运行的时候需要依赖外部库，存在 [依赖地狱](https://zh.wikipedia.org/wiki/%E7%9B%B8%E4%BE%9D%E6%80%A7%E5%9C%B0%E7%8B%B1)
+- 缺点：运行的时候需要依赖外部库，存在 [依赖地域](https://zh.wikipedia.org/wiki/%E7%9B%B8%E4%BE%9D%E6%80%A7%E5%9C%B0%E7%8B%B1)
 
 
 #### 静态库
