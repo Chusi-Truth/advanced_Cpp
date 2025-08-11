@@ -1,0 +1,45 @@
+cmake_minimum_required(VERSION 3.12)
+project(DemoProject LANGUAGES CXX)
+
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+if(WIN32)
+    message(STATUS "编译环境: Windows")
+elseif(UNIX)
+    message(STATUS "编译环境: Unix/Linux")
+else()
+    message(STATUS "编译环境: 未知")
+endif()
+
+
+
+option(ENABLE_DEBUG "开启调试模式以打印详细信息" ON)
+
+
+if(ENABLE_DEBUG)
+    add_compile_definitions(DEBUG_MODE)
+    message(STATUS "构建模式: Debug (已定义 DEBUG_MODE 宏)")
+else()
+    message(STATUS "构建模式: Release")
+endif()
+
+
+# 这里改为相对路径指向 hw_proj 里的 include 和 src
+include_directories(${CMAKE_SOURCE_DIR}/../hw_proj/include)
+
+file(GLOB_RECURSE SOURCES ${CMAKE_SOURCE_DIR}/../hw_proj/src/*.cpp)
+
+add_executable(run ${SOURCES})
+
+target_compile_options(run PRIVATE
+    -ftemplate-depth=11000
+    -ftemplate-backtrace-limit=0
+)
+
+set_target_properties(run PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin
+)
+
+# message(STATUS "源文件: ${SOURCES}")
+message(STATUS "找到源文件，正在生成可执行文件: run")
