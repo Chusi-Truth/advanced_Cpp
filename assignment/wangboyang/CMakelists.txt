@@ -17,14 +17,38 @@ target_compile_options(run PRIVATE
 )
 
 # ----------todo: 调试模式以及编译提示
+option(BUILD_TYPE "Debug or Release" "Debug")
+set_property(CACHE BUILD_TYPE PROPERTY STRINGS "Debug" "Release")
+if(BUILD_TYPE STREQUAL "Debug")
+	message(STATUS "Debug mode")
+	target_compile_definitions(run PRIVATE DEBUG_MODE ANALYZE_DEBUG)
+	target_compile_definitions(run PRIVATE DEBUG_MODE)
+	set(ANALYZE_FILE "${CMAKE_SOURCE_DIR}/../hw_proj/src/analyze.cpp")
+	if(EXISTS ${ANALYZE_FILE})
+		message(STATUS "analyze.cpp 路径: ${ANALYZE_FILE}")
+		file(SIZE ${ANALYZE_FILE} ANALYZE_FILE_SIZE)
+		message(STATUS "analyze.cpp 文件大小: ${ANALYZE_FILE_SIZE} 字节")
+		file(TIMESTAMP ${ANALYZE_FILE} ANALYZE_FILE_TIMESTAMP)
+		message(STATUS "analyze.cpp 最后修改时间: ${ANALYZE_FILE_TIMESTAMP}")
+		message(STATUS "已打开 analyze.cpp 调试信息")
+	else()
+        	message(WARNING "未找到 analyze.cpp: ${ANALYZE_FILE}")
+    	endif()
+elseif(BUILD_TYPE STREQUAL "Release")
+	message(STATUS "Release mode")
+	target_compile_definitions(run PRIVATE RELEASE_MODE)
+endif()
 
+if(WIN32)
+	message(STATUS "Building on Windows")
+elseif(UNIX)
+	message(STATUS "Building on Unix/Linux")
+endif()
 # ----------
 
-
 set_target_properties(run PROPERTIES
-    RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin
+	RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin
 )
-
 
 message(STATUS "源文件数量: ${SOURCES}")
 message(STATUS "生成可执行文件: run")
