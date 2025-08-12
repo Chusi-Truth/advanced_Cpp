@@ -20,9 +20,7 @@ chusi/CMakelists.txt 为你提供了一个简单的框架，你可以在此之�
 
 ~~~bash
 //在 assignment 目录下
-cmake -S yourFolderName -B build
-cmake --build build
-./build/bin/run
+cmake -G "Unix Makefiles" -S wangboyang -B build -DBUILD_TYPE=Debug/Release
 ~~~
 
 ## 作业提交规范
