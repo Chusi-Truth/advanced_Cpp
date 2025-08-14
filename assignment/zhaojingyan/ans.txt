@@ -1,0 +1,29 @@
+your answer
+
+case 1:
+
+<expr> ::= <expr> "+" <term>
+| <expr> "-" <term>
+| <term>
+<term> ::= <term> "*" <factor>
+| <term> "/" <factor>
+| <term> "%%" <factor>
+| <factor>
+<factor> ::= "(" <expr> ")"
+| number
+| identifier
+
+case 2:
+
+<expr> ::= <expr> "+" <term>
+| <expr> "-" <term>
+| <term>
+<term> ::= <term> "*" <highterm>
+| <term> "/" <highterm>
+| <term> "%%" <highterm>
+| <highterm>
+<highterm> ::= <high-term> "%%" <factor>
+| <factor>
+<factor> ::= "(" <expr> ")"
+| number
+| identifier
