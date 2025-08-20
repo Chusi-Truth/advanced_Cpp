@@ -1,0 +1,49 @@
+cmake_minimum_required(VERSION 3.12)
+project(DemoProject LANGUAGES CXX)
+
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+# 这里改为相对路径指向 hw_proj 里的 include 和 src
+include_directories(${CMAKE_SOURCE_DIR}/../hw_proj/include)
+
+file(GLOB_RECURSE SOURCES ${CMAKE_SOURCE_DIR}/../hw_proj/src/*.cpp)
+
+add_executable(run ${SOURCES})
+
+target_compile_options(run PRIVATE
+    -ftemplate-depth=11000
+    -ftemplate-backtrace-limit=0
+)
+
+# ----------todo: 调试模式以及编译提示
+
+# 自定义命令行选项：缺省为 Release
+option(BUILD_MODE "Build mode: Debug or Release" Release)
+set(CMAKE_BUILD_TYPE ${BUILD_MODE})
+
+# 根据 CMAKE_BUILD_TYPE 决定是否加宏
+if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+    add_compile_definitions(run PRIVATE DEBUG_MODEL)  
+    message(STATUS ">>> Debug build <<<")
+else()
+    message(STATUS ">>> Release build <<<")
+endif()
+
+# 打印编译环境信息
+if(WIN32)
+  message(STATUS "Building on Windows")
+elseif(Linux)
+  message(STATUS "Building on Linux")
+endif()
+
+# ----------
+
+
+set_target_properties(run PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin
+)
+
+
+message(STATUS "源文件数量: ${SOURCES}")
+message(STATUS "生成可执行文件: run")

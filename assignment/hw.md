@@ -1,5 +1,9 @@
 # 作业
 
+**NOTE**: My Homework is in the `flyingPointer2` directory.
+
+------
+
 ## 1. 消去上下文无关文法的二义性
 
 定义 %% 为距离运算(a %% b=|a-b|)，根据讲义中的无二义上下文无关文法，尝试给出 %% 与 * / 同优先级的上下文无关文法，以及 %% 是最高优先级的上下文无关文法。
@@ -16,9 +20,7 @@ chusi/CMakelists.txt 为你提供了一个简单的框架，你可以在此之�
 
 ~~~bash
 //在 assignment 目录下
-cmake -S yourFolderName -B build
-cmake --build build
-./build/bin/run
+cmake -G "Unix Makefiles" -S wangboyang -B build -DBUILD_TYPE=Debug/Release
 ~~~
 
 ## 作业提交规范
@@ -28,4 +30,4 @@ cmake --build build
 - 你的文件夹中应该有两项内容：第一问的 ans.txt 或 ans.md 文件以及第二问的 CMakelists.txt 文件。
 - 不要修改 hw_proj 中的内容。
 - 提交前注意要删除 build/ 以及其它编译过程中产生的文件。
-- 向项目仓库的 assignment 分支提交 pull request. 
+- 向项目仓库的 assignment 分支提交 pull request.
