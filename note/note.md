@@ -336,7 +336,7 @@ g++ main.cpp -L. -lmath -o main           # 链接动态库（运行时需要 li
 
 -fPIC 在 Linux 系统中用于生成可以在任意内存地址加载(位置无关代码)的共享库，对于 Windows系统不是必须的。
 
-#### ../example/case2 示例
+#### ../example/case2 示例（有更正）
 
 我们机器人的行为通过 behavior.h 头文件中的函数进行控制，通过动态链接，我们可以更新头文件，但是无需重新编译其它机器人的源代码。
 
@@ -345,20 +345,29 @@ g++ main.cpp -L. -lmath -o main           # 链接动态库（运行时需要 li
 g++ -fPIC -shared src/behavior.cpp -o libbehavior.so   # Linux
 g++ -fPIC -shared src/act.cpp -o libact.so   # Linux
 # 编译主程序并链接动态库
-g++ src/run.cpp -Iinclude -o run -L. -lbehavior -Wl,-rpath=.
+#g++ src/run.cpp -Iinclude -o run -L. -lbehavior -Wl,-rpath=.
+g++ src/run.cpp -Iinclude -o run -L. -lbehavior -lact
 ~~~
+
+**说明**：若要运行上述编译生成的`run`程序，可以临时设置 `LD_LIBRARY_PATH`（仅当前终端会话有效）以指定库路径。对于本程序，库路径在当前目录，因此可以通过如下命令运行上述程序：
+
+```bash
+export LD_LIBRARY_PATH=.:$LD_LIBRARY_PATH  # 将当前目录添加到库搜索路径
+./run
+```
+
 
 
 ### 管理大型项目的构建：Makefile 与 Cmake
 
 ## 大型项目的构建
-使用 g++ 构建项目时，在链接阶段 对源文件或目标文件的顺序有时有要求。例如，如果 firstFile.cpp 中定义了函数 foo，而 secondFile.cpp 中调用了该函数，那么链接命令中 firstFile.o 应出现在 secondFile.o 之后：
+使用 g++ 构建项目时，在链接阶段 对源文件或目标文件的**顺序**有时有要求。例如，如果 firstFile.cpp 中定义了函数 foo，而 secondFile.cpp 中调用了该函数，那么链接命令中 firstFile.o 应出现在 secondFile.o 之后：
 ~~~bash
 g++ secondFile.o firstFile.o -o program
 ~~~
 
 
-此外，在构建大型项目时，由于源文件之间存在复杂的依赖关系（例如头文件修改会影响多个 .cpp 文件），手动判断哪些文件需要重新编译几乎不可能。使用 g++ 时通常只能粗暴地全量重新编译：
+此外，在构建大型项目时，由于源文件之间存在复杂的依赖关系（例如头文件修改会影响多个 .cpp 文件），手动判断哪些文件需要重新编译几乎不可能。使用 g++ 时通常**只能粗暴地全量重新编译**：
 
 ~~~bash
 // 下面的执行在../example/case3 下执行

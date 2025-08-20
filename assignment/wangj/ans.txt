@@ -1,0 +1,26 @@
+%% 与 * / 同优先级
+
+<expr> ::= <expr> "+" <term>
+| <expr> "-" <term>
+| <term>
+<term> ::= <term> "*" <factor>
+| <term> "/" <factor>
+| <term> "%%" <factor>
+| <factor>
+<factor> ::= "(" <expr> ")"
+| number
+| identifier
+
+%% 是最高优先级
+
+<expr> ::= <expr> "+" <term>
+| <expr> "-" <term>
+| <term>
+<term> ::= <term> "*" <power>
+| <term> "/" <power>
+| <power>
+<power> ::= <power> "%%" <factor>
+| <factor>
+<factor> ::= "(" <expr> ")"
+| number
+| identifier
