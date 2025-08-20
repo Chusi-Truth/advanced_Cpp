@@ -1,0 +1,15 @@
+your answer
+
+第一问：消去上下文无关文法的二义性
+1.%%与* /同优先级的上下文无关文法：
+
+<expr> ::= <expr> "+" <term> | <expr> "-" <term> | <term>
+<term> ::= <term> "*" <factor> | <term> "/" <factor> | <term> "%%" <factor> | <factor>
+<factor> ::= "(" <expr> ")" | number
+
+2.%%具有最高优先级：
+
+<expr> ::= <expr> "+" <term> | <expr> "-" <term> | <term>
+<term> ::= <term> "*" <factor> | <term> "/" <factor> | <factor>
+<factor> ::= <factor> "%%" <cnt> | <cnt>
+<cnt> ::= "(" <expr> ")" | number
