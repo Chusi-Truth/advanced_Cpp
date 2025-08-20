@@ -20,6 +20,26 @@ target_compile_options(run PRIVATE
 
 # ----------
 
+# 构建模式选项（默认Release）
+option(BUILD_DEBUG "Build with debug info" OFF)
+
+if(BUILD_DEBUG)
+    message(STATUS "当前为 Debug 模式")
+    target_compile_definitions(run PRIVATE DEBUG_MODE=1)
+else()
+    message(STATUS "当前为 Release 模式")
+    target_compile_definitions(run PRIVATE DEBUG_MODE=0)
+endif()
+
+# 平台提示
+if(WIN32)
+    message(STATUS "编译环境: Windows")
+elseif(UNIX)
+    message(STATUS "编译环境: Linux")
+else()
+    message(STATUS "编译环境: 其他")
+endif()
+
 
 set_target_properties(run PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin

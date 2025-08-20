@@ -28,4 +28,4 @@ cmake --build build
 - 你的文件夹中应该有两项内容：第一问的 ans.txt 或 ans.md 文件以及第二问的 CMakelists.txt 文件。
 - 不要修改 hw_proj 中的内容。
 - 提交前注意要删除 build/ 以及其它编译过程中产生的文件。
-- 向项目仓库的 assignment 分支提交 pull request.
+- 向项目仓库的 assignment 分支提交 pull request. 
