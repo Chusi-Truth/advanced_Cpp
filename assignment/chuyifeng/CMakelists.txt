@@ -17,6 +17,23 @@ target_compile_options(run PRIVATE
 )
 
 # ----------todo: 调试模式以及编译提示
+option(ENABLE_DEBUG "Enable debug analyze logs" ON)
+
+if(ENABLE_DEBUG)
+    message(STATUS "构建模式: DEBUG (开启 analyze 调试输出)")
+    target_compile_definitions(run PRIVATE DEBUG_MODEL)
+else()
+    message(STATUS "构建模式: RELEASE (关闭 analyze 调试输出)")
+endif()
+
+# 平台提示
+if(WIN32)
+    message(STATUS "当前编译平台: Windows")
+elseif(UNIX)
+    message(STATUS "当前编译平台: Linux/Unix")
+else()
+    message(STATUS "当前编译平台: 其他/未知")
+endif()
 
 # ----------
 
