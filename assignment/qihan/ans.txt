@@ -1,0 +1,30 @@
+%% 与 * / 同优先级的上下文无关文法：
+
+<expr>   ::= <expr> "+" <term>
+          | <expr> "-" <term>
+          | <term>
+
+<term>   ::= <term> "*" <factor>
+          | <term> "/" <factor>
+	  | <term> "%%" <factor>
+          | <factor>
+
+<factor> ::= "(" <expr> ")"
+          | number
+
+
+%% 是最高优先级的上下文无关文法：
+
+<expr>   ::= <expr> "+" <term>
+          | <expr> "-" <term>
+          | <term>
+
+<term>   ::= <term> "*" <factor>
+          | <term> "/" <factor>
+          | <Term>
+
+<Term>   ::= <Term> "%%" <factor>
+          | <factor>
+
+<factor> ::= "(" <expr> ")"
+          | number

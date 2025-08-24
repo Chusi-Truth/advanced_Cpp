@@ -1,0 +1,63 @@
+cmake_minimum_required(VERSION 3.12)
+project(DemoProject LANGUAGES CXX)
+
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+# 这里改为相对路径指向 hw_proj 里的 include 和 src
+include_directories(${CMAKE_SOURCE_DIR}/../hw_proj/include)
+
+file(GLOB_RECURSE SOURCES ${CMAKE_SOURCE_DIR}/../hw_proj/src/*.cpp)
+
+add_executable(run ${SOURCES})
+
+target_compile_options(run PRIVATE
+    -ftemplate-depth=11000
+    -ftemplate-backtrace-limit=0
+)
+
+# ----------todo: 调试模式以及编译提示
+
+# 定义自定义选项
+option(MY_DEBUG "Enable debug mode" OFF)
+
+if(MY_DEBUG)  # 在控制台输入时的CMAKE_BUILD_TYPE参数
+    # Debug模式：无优化，包含调试信息，启用DEBUG_MODE宏
+    target_compile_definitions(run PRIVATE DEBUG_MODE)
+    target_compile_options(run PRIVATE -O0 -Wall -g)
+    message(STATUS "Building in DEBUG mode")
+else()
+    # Release模式：优化，不包含调试信息
+    target_compile_options(run PRIVATE -O2 -Wall)
+    message(STATUS "Building in RELEASE mode")
+endif()
+
+# 根据构建模式设置不同的编译选项
+# if(CMAKE_BUILD_TYPE STREQUAL "Debug")  # 在控制台输入时的CMAKE_BUILD_TYPE参数
+#     # Debug模式：无优化，包含调试信息，启用DEBUG_MODE宏
+#     target_compile_definitions(run PRIVATE DEBUG_MODE)
+#     target_compile_options(run PRIVATE -O0 -Wall -g)
+#     message(STATUS "Building in DEBUG mode")
+# else()
+#     # Release模式：优化，不包含调试信息
+#     target_compile_options(run PRIVATE -O2 -Wall)
+#     message(STATUS "Building in RELEASE mode")
+# endif()
+
+
+# 构建过程中打印正在进行编译的环境是 Win 还是 Linux
+if(WIN32)
+  message(STATUS "Building on Windows")
+elseif(UNIX)
+  message(STATUS "Building on Unix/Linux")
+endif()
+# ----------
+
+
+set_target_properties(run PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin
+)
+
+
+message(STATUS "源文件数量: ${SOURCES}")
+message(STATUS "生成可执行文件: run")
