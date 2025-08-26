@@ -17,7 +17,25 @@ target_compile_options(run PRIVATE
 )
 
 # ----------todo: 调试模式以及编译提示
+option(BUILD_DEBUG "Build in debug mode with debug information" OFF)
 
+if(CMAKE_SYSTEM-NAME STREQUAL "Windows")
+    message(STATUS "编译环境: Windows")
+    set(PLATFORM "WIN")
+elseif(CMAKE_SYSTEM_NAME STREQUAL "Linux")
+    message(STATUS "编译环境: Linux")
+    set(PLATFORM "LINUX")
+else()
+    message(STATUS "编译环境: ${CMAKE_SYSTEM_NAME}")
+    set(PLATFORM "OTHER")
+endif()
+
+if(BUILD_DEBUG)
+    message(STATUS "构建模式：Debug")
+    add_compile_definitions(DEBUG_MODE)
+else()
+    message(STATUS "构建模式：Release")
+endif()
 # ----------
 
 
