@@ -1,0 +1,27 @@
+your answer
+#情况一：%%于*和/同优先级
+<expr>   ::= <expr> "+" <term>
+           | <expr> "-" <term>
+           | <term>
+
+<term>   ::= <term> "*" <factor>
+           | <term> "/" <factor>
+           | <term> "%%" <factor>
+           | <factor>
+
+<factor> ::= "(" <expr> ")"
+           | number
+#情况二：%%是最高优先级
+<expr>    ::= <expr> "+" <term>
+            | <expr> "-" <term>
+            | <term>
+
+<term>    ::= <term> "*" <percent>
+            | <term> "/" <percent>
+            | <percent>
+
+<percent> ::= <percent> "%%" <factor>
+            | <factor>
+
+<factor>  ::= "(" <expr> ")"
+            | number
