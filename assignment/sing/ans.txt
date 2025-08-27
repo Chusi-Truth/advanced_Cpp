@@ -1,0 +1,11 @@
+your answer
+1. %% 与 *、/ 同优先级：
+expr   : expr ('+' | '-') term | term
+term   : term ('*' | '/' | '%%') factor | factor
+factor : '(' expr ')' | NUMBER | IDENTIFIER
+
+2. %% 是最高优先级（高于 *、/）：
+expr    : expr ('+' | '-') term | term
+term    : term ('*' | '/') factor | factor
+factor  : factor '%%' primary | primary
+primary : '(' expr ')' | NUMBER | IDENTIFIER
