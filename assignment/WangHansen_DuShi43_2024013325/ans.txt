@@ -1,0 +1,29 @@
+your answer（我在proj里面也写了md）
+## 1. 消去上下文无关文法的二义性
+
+定义 %% 为距离运算(a %% b=|a-b|)，根据讲义中的无二义上下文无关文法，尝试给出 %% 与 * / 同优先级的上下文无关文法，以及 %% 是最高优先级的上下文无关文法。
+
+**同优先级：**
+<expr> ::= <expr> "+" <term>
+        | <expr> "-" <term>
+        | <term>
+<term> ::= <term> "*" <factor>
+        | <term> "/" <factor>
+        | <term> "%%" <factor>
+        | <factor>
+<factor> ::= "(" <expr> ")"
+        | number
+        | identifier
+
+**最高优先级：**
+<expr> ::= <expr> "+" <term>
+        | <expr> "-" <term>
+        | <term>
+<term> ::= <term> "*" <factor>
+        | <term> "/" <factor>
+        | <factor>
+<factor> ::= <factor> "%%" <atom>
+        | <atom>
+<atom> ::= "(" <expr> ")"
+        | number
+        | identifier

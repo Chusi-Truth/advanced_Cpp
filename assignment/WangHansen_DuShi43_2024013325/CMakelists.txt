@@ -4,6 +4,7 @@ project(DemoProject LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+
 # 这里改为相对路径指向 hw_proj 里的 include 和 src
 include_directories(${CMAKE_SOURCE_DIR}/../hw_proj/include)
 
@@ -17,6 +18,23 @@ target_compile_options(run PRIVATE
 )
 
 # ----------todo: 调试模式以及编译提示
+
+option(BUILD_MODE_DEBUG "Build mode is DEBUG() (or RELEASE)" ON)
+
+if(BUILD_MODE_DEBUG)
+    message(STATUS "构建模式: DEBUG")
+    target_compile_definitions(run PRIVATE DEBUG_MODE)
+else()
+    message(STATUS "构建模式: RELEASE")
+endif()
+
+if(WIN32)
+    message(STATUS "编译平台：Windows")
+elseif(UNIX)
+    message(STATUS "编译平台：Unix/Linux")
+else
+    message(STATUS "编译平台：其他")
+endif()
 
 # ----------
 
