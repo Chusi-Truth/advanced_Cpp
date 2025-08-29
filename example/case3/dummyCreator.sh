@@ -1,4 +1,4 @@
-mkdir -p include/dummies
+dumkdir -p include/dummies
 
 # 生成dummy头文件
 for i in $(seq 0 999); do
