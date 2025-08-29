@@ -1,0 +1,40 @@
+cmake_minimum_required(VERSION 3.12)
+project(DemoProject LANGUAGES CXX)
+
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+option(DEBUG_MODE "Enable debug mode" OFF)
+
+if(WIN32)
+    message(STATUS "Building on Windows")
+elseif(UNIX)
+    message(STATUS "Building on Unix/Linux")
+endif()
+
+
+include_directories(${CMAKE_SOURCE_DIR}/../hw_proj/include)
+
+file(GLOB_RECURSE SOURCES ${CMAKE_SOURCE_DIR}/../hw_proj/src/*.cpp)
+
+add_executable(run ${SOURCES})
+
+target_compile_options(run PRIVATE
+    -ftemplate-depth=11000
+    -ftemplate-backtrace-limit=0
+)
+
+
+if(DEBUG_MODE)
+    target_compile_definitions(run PRIVATE DEBUG_MODE)
+    message(STATUS "Debug mode enabled")
+else()
+    message(STATUS "Debug mode disabled")
+endif()
+
+set_target_properties(run PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin
+)
+
+message(STATUS "源文件数量: ${SOURCES}")
+message(STATUS "生成可执行文件: run")
