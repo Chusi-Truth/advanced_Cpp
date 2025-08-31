@@ -1,0 +1,9 @@
+若距离运算与乘除同级，则应在term中插入之
+<expr> ::= <expr> "+" <term>| <expr> "-" <term>| <term>
+<term> ::= <term> "*" <factor>| <term> "/" <factor>| <term>"%%"<factor>|<factor>
+<factor> ::= "(" <expr> ")"| number| identifier
+若高于乘除，则另起一层
+<expr> ::= <expr> "+" <term>| <expr> "-" <term>| <term>
+<term> ::= <term> "*" <dist>| <term> "/" <dist>| <dist>
+<dist>::=<dist>"%%"<factor>|<factor>
+<factor> ::= "(" <expr> ")"| number| identifier
