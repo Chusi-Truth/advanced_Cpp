@@ -1,1 +1,11 @@
-your answer
+对于 %% 与 * / 同优先级的情况：
+E -> E + T | E - T | T
+T -> T * F | T / F | T %% F | F
+F -> ( E ) | num
+
+对于 %% 是最高优先级的情况：
+E -> E + T | E - T | T
+T -> T * F | T / F | F
+F -> F %% G | G
+G -> ( E ) | num
+
