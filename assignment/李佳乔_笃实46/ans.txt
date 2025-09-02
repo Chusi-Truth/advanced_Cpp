@@ -1,0 +1,31 @@
+%%与*/同优先级
+
+<expr>   ::= <expr> "+" <term>
+          | <expr> "-" <term>
+          | <term>
+
+<term>   ::= <term> "*" <factor>
+          | <term> "/" <factor>
+          | <term> "%%" <factor>   // %% 与 * / 同优先级
+          | <factor>
+
+<factor> ::= "(" <expr> ")"
+          | number
+          | identifier
+
+%%为最高优先级
+
+<expr>          ::= <expr> "+" <term>
+                 | <expr> "-" <term>
+                 | <term>
+
+<term>          ::= <term> "*" <distance_term>
+                 | <term> "/" <distance_term>
+                 | <distance_term>
+
+<distance_term> ::= <distance_term> "%%" <factor>   // %% 是最高优先级
+                 | <factor>
+
+<factor>        ::= "(" <expr> ")"
+                 | number
+                 | identifier
