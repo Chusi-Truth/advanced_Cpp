@@ -1,9 +1,0 @@
-1. %% 与 * / / 同优先级
-E → E + T | E - T | T
-T → T * F | T / F | T %% F | F
-F → (E) | num
-2. %% 是最高优先级
-E → E + T | E - T | T
-T → T * P | T / P | P
-P → P %% F | F
-F → (E) | num
